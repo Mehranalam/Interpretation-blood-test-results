@@ -1,5 +1,6 @@
-import sqlite3
 from tabulate import tabulate
+from PyPDF2 import PdfReader
+import sqlite3
 
 DATA_PROPERTI = {}
 
@@ -8,32 +9,58 @@ def store_data(data):
     cur = con.cursor()
 
     ''' DATA_QUERY '''
-    cur.execute("DATA_QUERY")
+    cur.execute(
+        "DATA_QUERY"
+        )
 
     '''
-    This function collects the test data 
-    by receiving detailed information and stores it in the database [ SQlite ]
+        This function collects the test data 
+        by receiving detailed information and stores it in the database [ SQlite ]
 
     ''' 
 
 def get_data_from_user(data_input):
-    NON_PRECCES = input("Please Enter All of data with SPACE: [Such as WBC RBC HCT .etc]")
-    DATA_LIST = NON_PRECCES.split(" ")
+    
+    text = []
+    
+    '''
+        The data is received by pdf files in the assets section 
+        and the data is analyzed by the PDFQuery library and 
+        stored in a list and the output is published.
+        
+    '''
+    with open(data_input, 'rb') as f:
+        reader = PdfReader(f)
+        page = reader.pages[0]
+        text = page.extract_text()
 
-    DATA_PROPERTI["WBC"] = DATA_LIST[0]
-    DATA_PROPERTI["RBC"] = DATA_LIST[1]
-    DATA_PROPERTI["HCT"] = DATA_LIST[2]
-    DATA_PROPERTI["MCV"] = DATA_LIST[3]
-    DATA_PROPERTI["MCH"] = DATA_LIST[4]
+    
+    return text
+    
 
-    print(tabulate([
-                        ['WBC', DATA_PROPERTI.get('WBC')],
-                        ['RBC', DATA_PROPERTI.get('RBC')],
-                        ['HCT', DATA_PROPERTI.get('HCT')],
-                        ['MCV', DATA_PROPERTI.get('MCV')],
-                        ['MCH', DATA_PROPERTI.get('MCH')]
-                        
-                    ], headers=['Data', 'Value'], tablefmt='orgtbl'))
+def find_usable_data(final_get_data, query):
+    
+    REQUESTED_INFORMATION = ""
+    
+    '''
+    
+    By sending requested requests, the data will be divided in better details 
+    and placed more easily in the database.
+    
+    '''
+    RAW = final_get_data.find(query)
+    INIT = 0
+    while INIT < len(final_get_data):        
+        if final_get_data[RAW+INIT] == "\n":
+            break
+        
+        REQUESTED_INFORMATION = REQUESTED_INFORMATION + final_get_data[RAW+INIT]
+
+        INIT += 1
+        
+        
+    
+    print(REQUESTED_INFORMATION)
 
 
     '''
@@ -59,3 +86,7 @@ the Bing-DALL_E engine and analyzed with a good prompt,
 and the result is generated and processed as a .pdf file.
 
 '''
+
+
+RAW_DATA = get_data_from_user("../assets/input/complete-blood-count-CBC.pdf")
+find_usable_data(RAW_DATA ,"RBC")
