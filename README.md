@@ -23,3 +23,4 @@ The data is classified in an orderly manner and after receiving the information,
      - Platelet count: 140 – 400 x109/L
 
 ```
+
