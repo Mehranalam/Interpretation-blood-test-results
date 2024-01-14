@@ -15,4 +15,4 @@ find_usable_data(RAW_DATA ,"RBC")
 ```
 
 - [https://geekymedics.com/fbc-interpretation/](https://geekymedics.com/fbc-interpretation/)
-
+- [assets/input/complete-blood-count-CBC.pdf](https://github.com/Mehranalam/Interpretation-blood-test-results/blob/main/assets/input/complete-blood-count-CBC.pdf)
