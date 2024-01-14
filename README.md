@@ -11,16 +11,3 @@ The data is classified in an orderly manner and after receiving the information,
 
 - [https://geekymedics.com/fbc-interpretation/](https://geekymedics.com/fbc-interpretation/)
 
-```
-
-    Total: 3.6 – 11.0 x 109/L
-    Neutrophils: 1.8 – 7.5 x 109/L
-    Lymphocytes: 1.0 – 4.0 x 109/L
-    Monocytes: 0.2 – 0.8 x 109/L
-    Eosinophils: 0.1 – 0.4 x 109/L
-    Basophils: 0.02 – 0.10 x 109/L
-
-     - Platelet count: 140 – 400 x109/L
-
-```
-
