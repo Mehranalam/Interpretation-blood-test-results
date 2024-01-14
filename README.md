@@ -9,5 +9,10 @@ This project is just a small step to do a big thing. This project protects the p
 
 The data is classified in an orderly manner and after receiving the information, it will deliver the interpretation and output in the form of a .pdf file after a few minutes.
 
+```python
+RAW_DATA = get_data_from_user("../assets/input/complete-blood-count-CBC.pdf")
+find_usable_data(RAW_DATA ,"RBC")
+```
+
 - [https://geekymedics.com/fbc-interpretation/](https://geekymedics.com/fbc-interpretation/)
 
