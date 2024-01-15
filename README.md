@@ -1,4 +1,6 @@
 ### Interpretation-blood-test-results
+[![CodeQL](https://github.com/Mehranalam/Interpretation-blood-test-results/actions/workflows/codeql.yml/badge.svg)](https://github.com/Mehranalam/Interpretation-blood-test-results/actions/workflows/codeql.yml)
+
 
 An open source project for the interpretation of blood test results, by receiving information such as WBC and RBC, interprets the test result completely automatically.
 
