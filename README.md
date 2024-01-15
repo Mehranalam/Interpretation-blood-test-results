@@ -27,7 +27,7 @@ QUERY_B = [
 ```
 
 - [https://geekymedics.com/fbc-interpretation/](https://geekymedics.com/fbc-interpretation/)
-- [assets/input/complete-blood-count-CBC.pdf](https://github.com/Mehranalam/Interpretation-blood-test-results/blob/main/assets/input/complete-blood-count-CBC.pdf)
+- [CBC-test-report-format-example-sample-template-Drlogy-lab-report.pdf](https://github.com/Mehranalam/Interpretation-blood-test-results/blob/main/assets/input/CBC-test-report-format-example-sample-template-Drlogy-lab-report.pdf)
 
 
 #### Dataset of Blood test sample [Drlogy Healthcare organization]
