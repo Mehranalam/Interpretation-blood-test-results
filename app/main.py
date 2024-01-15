@@ -1,23 +1,60 @@
-from tabulate import tabulate
 from PyPDF2 import PdfReader
 import sqlite3
 
 DATA_PROPERTI = {}
 
-def store_data(data):
+# Blood factors needed to interpret laboratory data
+QUERY_B = [
+    "Hemoglobin",
+    "WBC count",
+    "RBC count",
+    "Platelet Count",
+    "PCV",
+    "MCV",
+    "MCH",
+    "MCHC",
+    "RDW"
+]
+
+def STORE_DATA(RAW_DATA):
     con = sqlite3.connect("database.db")
     cur = con.cursor()
-
-    ''' DATA_QUERY '''
+    
     cur.execute(
-        "DATA_QUERY"
-        )
+        "CREATE TABLE BLOOD_INFORMATION(Bloodـfactors, data)"
+    )
 
+    ''' DATA_QUERY '''    
+    counter = 0
+    for DATA_PROTECT in QUERY_B:
+        DATA_PROPERTI[DATA_PROTECT] = FIND_USABLE_DATA(
+            RAW_DATA ,
+            QUERY_B[counter]
+        )
+        
+        counter += 1
+
+    data = []
+
+    DATA_REPLACE = 0
+    while DATA_REPLACE < len(DATA_PROPERTI):
+        data.append(
+            (QUERY_B[DATA_REPLACE], DATA_PROPERTI[QUERY_B[DATA_REPLACE]])
+        )
+    
+        DATA_REPLACE += 1
+    
+    cur.executemany(
+        "INSERT INTO BLOOD_INFORMATION VALUES(?, ?)"
+        ,data
+    )
     '''
         This function collects the test data 
         by receiving detailed information and stores it in the database [ SQlite ]
 
     ''' 
+    
+    con.commit()  # Remember to commit the transaction after executing INSERT.
 
 def get_data_from_user(data_input):
     
@@ -38,7 +75,7 @@ def get_data_from_user(data_input):
     return text
     
 
-def find_usable_data(final_get_data, query):
+def FIND_USABLE_DATA(final_get_data, query):
     
     REQUESTED_INFORMATION = ""
     
@@ -51,7 +88,7 @@ def find_usable_data(final_get_data, query):
     RAW = final_get_data.find(query)
     INIT = 0
     while INIT < len(final_get_data):        
-        if final_get_data[RAW+INIT] == "\n":
+        if final_get_data[RAW + INIT] == "\n":
             break
         
         REQUESTED_INFORMATION = REQUESTED_INFORMATION + final_get_data[RAW+INIT]
@@ -60,7 +97,8 @@ def find_usable_data(final_get_data, query):
         
         
     
-    print(REQUESTED_INFORMATION)
+    REQUESTED_INFORMATION = REQUESTED_INFORMATION.replace("  ", "")
+    return REQUESTED_INFORMATION.replace(query, "")
 
 
     '''
@@ -81,12 +119,14 @@ def find_usable_data(final_get_data, query):
 '''
 
 After receiving and correctly classifying the information by the 
-above 2 functions, the data is processed by 
+above 2+ functions, the data is processed by 
 the Bing-DALL_E engine and analyzed with a good prompt, 
 and the result is generated and processed as a .pdf file.
 
 '''
 
+RAW_DATA = get_data_from_user(
+    "../assets/input/CBC-test-report-format-example-sample-template-Drlogy-lab-report.pdf"
+)
 
-RAW_DATA = get_data_from_user("../assets/input/complete-blood-count-CBC.pdf")
-find_usable_data(RAW_DATA ,"RBC")
+STORE_DATA(RAW_DATA)
