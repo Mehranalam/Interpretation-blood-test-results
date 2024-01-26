@@ -1,1 +1,0 @@
-### this file for prompt from Chat-gpt for getting result of text blood.
