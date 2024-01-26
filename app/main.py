@@ -3,7 +3,9 @@ import sqlite3
 
 DATA_PROPERTI = {}
 
-# Blood factors needed to interpret laboratory data
+# Blood factors needed to interpret laboratory data 
+# data dynamic geting from PDF file.
+
 QUERY_B = [
     "Hemoglobin",
     "WBC count",
@@ -13,7 +15,12 @@ QUERY_B = [
     "MCV",
     "MCH",
     "MCHC",
-    "RDW"
+    "RDW",
+    "Neutrophils",
+    "Lymphocytes",
+    "Monocytes",
+    "Eosinophils",
+    "Basophils"
 ]
 
 def STORE_DATA(RAW_DATA):
