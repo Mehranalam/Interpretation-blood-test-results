@@ -20,34 +20,40 @@ def STORE_DATA(RAW_DATA):
     con = sqlite3.connect("database.db")
     cur = con.cursor()
     
-    cur.execute(
+    
+    try:
+        cur.execute(
         "CREATE TABLE BLOOD_INFORMATION(Bloodـfactors, data)"
-    )
-
-    ''' DATA_QUERY '''    
-    counter = 0
-    for DATA_PROTECT in QUERY_B:
-        DATA_PROPERTI[DATA_PROTECT] = FIND_USABLE_DATA(
-            RAW_DATA ,
-            QUERY_B[counter]
         )
         
-        counter += 1
+        ''' DATA_QUERY '''    
+        counter = 0
+        for DATA_PROTECT in QUERY_B:
+            DATA_PROPERTI[DATA_PROTECT] = FIND_USABLE_DATA(
+                RAW_DATA ,
+                QUERY_B[counter]
+            )
+            
+            counter += 1
 
-    data = []
+        data = []
 
-    DATA_REPLACE = 0
-    while DATA_REPLACE < len(DATA_PROPERTI):
-        data.append(
-            (QUERY_B[DATA_REPLACE], DATA_PROPERTI[QUERY_B[DATA_REPLACE]])
+        DATA_REPLACE = 0
+        while DATA_REPLACE < len(DATA_PROPERTI):
+            data.append(
+                (QUERY_B[DATA_REPLACE], DATA_PROPERTI[QUERY_B[DATA_REPLACE]])
+            )
+        
+            DATA_REPLACE += 1
+        
+        cur.executemany(
+            "INSERT INTO BLOOD_INFORMATION VALUES(?, ?)"
+            ,data
         )
-    
-        DATA_REPLACE += 1
-    
-    cur.executemany(
-        "INSERT INTO BLOOD_INFORMATION VALUES(?, ?)"
-        ,data
-    )
+        
+    except sqlite3.OperationalError:
+        print("ERROR:[ database.db ] file is available\nThere is a problem creating the database.\nYou probably created the database before because the [ database.db ] file is available. Please delete the [ database.db ] or run the [ result.py ] file.")
+        
     '''
         This function collects the test data 
         by receiving detailed information and stores it in the database [ SQlite ]
