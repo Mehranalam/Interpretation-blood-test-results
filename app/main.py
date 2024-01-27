@@ -105,13 +105,25 @@ def FIND_USABLE_DATA(final_get_data, query):
             break
         
         REQUESTED_INFORMATION = REQUESTED_INFORMATION + final_get_data[RAW+INIT]
-
         INIT += 1
         
-        
     
-    REQUESTED_INFORMATION = REQUESTED_INFORMATION.replace("  ", "")
-    return REQUESTED_INFORMATION.replace(query, "")
+    NEW_DATA = ""
+    counter_MELON = 0
+    for i in REQUESTED_INFORMATION:
+        if counter_MELON == 1:
+            NEW_DATA = NEW_DATA + "----"
+            counter_MELON = 2
+            
+        if i != " ":
+            NEW_DATA = NEW_DATA + i
+            counter_MELON = 0
+            continue
+        
+        counter_MELON += 1
+    
+    # REQUESTED_INFORMATION.replace(query, "")
+    return NEW_DATA
 
 
     '''
