@@ -1,5 +1,6 @@
 import result
 
+alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ)( '"
 
 ''' Sample-output-data
 Key -   DATA
@@ -20,15 +21,26 @@ Key -   DATA
 14  -   ('Basophils', '1 00 - 02%')
 
 '''
-print(result.READ_DATA())
 def GET_TARGET_DATA(index_of):
+    valueOfFinal = []
+    keys = ""
     for init in result.READ_DATA():
-        SPLITED = init.split(",")
-        SPLITED_BY_KEY = int(SPLITED[0].split("-")[0])
-        if SPLITED_BY_KEY == index_of:
-            FINAL_DATA = SPLITED[1].replace(" " ,"")
-            return FINAL_DATA.replace(")" ,"")
-
+        if int(init.split("|")[0]) == index_of:
+            valueOfFinal = init.split(",")[1].split("----")
+            for DATA in init.split(",")[1].split("----"):
+                for ALPHA in DATA:
+                    for NEW_A in alphabet:
+                        if ALPHA == NEW_A:
+                            keys = keys + ALPHA
+                    
+                keys = keys + "-"        
+        
+    for init in keys.split("-"):
+        if init in valueOfFinal:
+            valueOfFinal.remove(init)
+            
+                     
+    return valueOfFinal[0]
 
 """
 The reference range is a set of laboratory values in which 95% of the healthy population is located, 
@@ -49,6 +61,10 @@ If the reference population used to generate normal values is small, the values 
 ]
 
 '''
+# White blood cells - *WBC*
+# This part of the program is dedicated to the calculation and 
+# interpretation of blood results based 
+# on the white blood cell count
 
 WBC_COUNT = GET_TARGET_DATA(2) 
 Neutrophils_COUNT = GET_TARGET_DATA(10)
@@ -65,10 +81,13 @@ percentage of white blood cells, which varies between people or at different age
 The normal range of white blood cell counts in a healthy adult is between 4,000 and 11,000 WBCs per microliter (μl or mcL) 
 or cubic millimeter of blood. Although this value may be different in men and women and healthy children and young people.
 """
-print(Lymphocytes_COUNT)
+
+print(Neutrophils_COUNT)
 
 def RESULTـOFـWHITEـBLOODـCELLS():
-    # goood
+    # This function examines the data received from counting the number of white blood cells 
+    # and their subsets in order to compare and match with the general and healthy samples and 
+    # declares diseases caused by outliers in the WBC count.
     TODO
 
 '''
