@@ -22,11 +22,10 @@ def READ_DATA():  # show data from database.db
     counter = 1
     DATA_INJORED = []
     for PARAMETER in rows:
-        DATA_INJORED.append(f"{counter} - {PARAMETER}")
+        DATA_INJORED.append(f"{counter} | {PARAMETER}")
         counter += 1
         
-    return DATA_INJORED    
-        
+    return DATA_INJORED 
 
 '''
 This file acts as a bridge between the data classification process and the final interpretation of the blood tests. 
