@@ -1,6 +1,9 @@
 import result
+from openai import OpenAI
 
+client = OpenAI(api_key='open_ai_key')
 alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ)( '"
+
 
 ''' Sample-output-data
 Key -   DATA
@@ -32,14 +35,14 @@ def GET_TARGET_DATA(index_of):
                     for NEW_A in alphabet:
                         if ALPHA == NEW_A:
                             keys = keys + ALPHA
-                    
+
                 keys = keys + "-"        
-        
+
     for init in keys.split("-"):
         if init in valueOfFinal:
             valueOfFinal.remove(init)
-            
-                     
+
+
     return valueOfFinal[0]
 
 """
@@ -84,12 +87,26 @@ or cubic millimeter of blood. Although this value may be different in men and wo
 
 print(Neutrophils_COUNT)
 
+
 def RESULTـOFـWHITEـBLOODـCELLS():
     # This function examines the data received from counting the number of white blood cells 
     # and their subsets in order to compare and match with the general and healthy samples and 
     # declares diseases caused by outliers in the WBC count.
     TODO
+    
 
+def call_chatgpt(prompt):
+    response = client.chat.completions.create(model="gpt-4",  # You can use "gpt-3.5-turbo" if you're on that model
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": prompt}
+    ],
+    max_tokens=150)
+    return response.choices[0].message.content
+
+prompt = "How do I integrate ChatGPT into my Python application? to md file."
+response = call_chatgpt(prompt)
+print(response)
 '''
 
 healthy person: between 4,000 and 11,000 WBCs per microliter (μl or mcL)
