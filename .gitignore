@@ -1,4 +1,4 @@
 app/myenv/
 app/__pycache__
 app/database.db
-assets/*
+/assets
