@@ -1,7 +1,8 @@
 import result
 from openai import OpenAI
+import google.generativeai as genai
+import os
 
-client = OpenAI(api_key='open_ai_key')
 alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ)( '"
 
 
@@ -69,7 +70,15 @@ If the reference population used to generate normal values is small, the values 
 # interpretation of blood results based 
 # on the white blood cell count
 
+Hemoglobin = GET_TARGET_DATA(1)
 WBC_COUNT = GET_TARGET_DATA(2) 
+RBC_COUNT = GET_TARGET_DATA(3)
+Platelet_Count = GET_TARGET_DATA(4)
+PCV = GET_TARGET_DATA(5)
+MCV = GET_TARGET_DATA(6)
+MCH = GET_TARGET_DATA(7)
+MCHC = GET_TARGET_DATA(8)
+RDW = GET_TARGET_DATA(9)
 Neutrophils_COUNT = GET_TARGET_DATA(10)
 Lymphocytes_COUNT = GET_TARGET_DATA(11)
 Monocytes_COUNT = GET_TARGET_DATA(12)
@@ -83,30 +92,52 @@ diseases or immunosuppressive conditions, including HIV/AIDS and lupus. Healthy 
 percentage of white blood cells, which varies between people or at different ages.
 The normal range of white blood cell counts in a healthy adult is between 4,000 and 11,000 WBCs per microliter (μl or mcL) 
 or cubic millimeter of blood. Although this value may be different in men and women and healthy children and young people.
+
+I recently took a blood test and got the following information from the test:
+
+WBC_COUNT = 34 cmmu
+Neutrophils_COUNT = 56
+Lymphocytes_COUNT = 66
+Monocytes_COUNT = 21
+Eosinophils_COUNT = 44
+Basophils_COUNT = 67
+
+I want you to completely interpret my blood test according to the above information in an accurate and professional manner with a low error rate and tell me how exactly my physical condition is according to the above information and how good I am in terms of blood, such as the number of white blood cells And I am healthy red.
+
 """
-
-print(Neutrophils_COUNT)
-
 
 def RESULTـOFـWHITEـBLOODـCELLS():
     # This function examines the data received from counting the number of white blood cells 
     # and their subsets in order to compare and match with the general and healthy samples and 
     # declares diseases caused by outliers in the WBC count.
     TODO
-    
 
-def call_chatgpt(prompt):
-    response = client.chat.completions.create(model="gpt-4",  # You can use "gpt-3.5-turbo" if you're on that model
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": prompt}
-    ],
-    max_tokens=150)
-    return response.choices[0].message.content
+prompt = f""" would like you to give me a small interpretation of my blood test according to this information, which I will bring to my doctor later:
 
-prompt = "How do I integrate ChatGPT into my Python application? to md file."
-response = call_chatgpt(prompt)
-print(response)
+'Hemoglobin', '(Hb) {Hemoglobin}'
+'WBC count', '{WBC_COUNT} cumm'
+'RBC count', '{RBC_COUNT} mill/cumm'
+'Platelet Count', '{Platelet_Count} cumm'
+'PCV', '{PCV} %'
+'MCV', '{MCV} fL'
+'MCH', '{MCH} pg'
+'MCHC', '{MCHC} g/dL'
+'RDW', '{RDW} %
+'Neutrophils', '{Neutrophils_COUNT} %'
+'Lymphocytes', '{Lymphocytes_COUNT} %'
+'Monocytes', '{Monocytes_COUNT} %
+'Eosinophils', '{Eosinophils_COUNT} %'
+'Basophils', '{Basophils_COUNT} %
+
+Please write a complete and detailed overall and your answer should be in Markdown format.
+
+"""
+
+genai.configure(api_key="?")
+model = genai.GenerativeModel('gemini-1.0-pro-latest')
+response = model.generate_content(prompt)
+print(response.text)
+
 '''
 
 healthy person: between 4,000 and 11,000 WBCs per microliter (μl or mcL)

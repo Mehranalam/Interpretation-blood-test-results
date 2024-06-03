@@ -27,6 +27,7 @@ def READ_DATA():  # show data from database.db
         
     return DATA_INJORED 
 
+
 '''
 This file acts as a bridge between the data classification process and the final interpretation of the blood tests. 
 It helps to ensure that the results are based on a solid foundation of data analysis and that any anomalies or errors are identified and 
