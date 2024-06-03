@@ -132,7 +132,7 @@ prompt = f"""I would like you to give me a small interpretation of my blood test
 Please write a complete and detailed summary that has full details and your answer must be in Markdown format.
 """
 
-genai.configure(api_key="AIzaSyCdW06STYYHCV4OinTCLGs2dpABUnWq0aY")
+genai.configure(api_key="?")
 model = genai.GenerativeModel('gemini-1.0-pro-latest')
 response = model.generate_content(prompt)
 english_content = response.text
