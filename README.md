@@ -28,7 +28,7 @@ corrected before the tests are interpreted. By utilizing this file, medical prof
 have greater confidence in the accuracy of their blood test results, which can ultimately lead to better patient outcomes.
 - `information.py` last step for procces data and push to OpenAI & Google Gemini
 
-Sample output: [result.md](/results)
+Sample output: [result/](/results)
 
 ```python
 # Blood factors needed to interpret laboratory data 
