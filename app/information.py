@@ -112,7 +112,10 @@ def RESULTـOFـWHITEـBLOODـCELLS():
     # declares diseases caused by outliers in the WBC count.
     TODO
 
-prompt = f"""I would like you to give me a small interpretation of my blood test according to this information, what will this information say about my physical health and what is the state of my body that I will bring to my doctor later:
+prompt = f"""I would like you to give me a small interpretation of 
+my blood test according to this information, 
+what will this information say about my physical health and 
+what is the state of my body that I will bring to my doctor later:
 
 'Hemoglobin', '(Hb) {Hemoglobin}'
 'WBC count', '{WBC_COUNT} cumm'
@@ -129,7 +132,8 @@ prompt = f"""I would like you to give me a small interpretation of my blood test
 'Eosinophils', '{Eosinophils_COUNT} %'
 'Basophils', '{Basophils_COUNT} %
 
-Please write a complete and detailed summary that has full details and your answer must be in Markdown format.
+Please write a complete and detailed summary that has full details and 
+your answer must be in Markdown format.
 """
 
 genai.configure(api_key="?")
