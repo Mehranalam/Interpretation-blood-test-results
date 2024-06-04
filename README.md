@@ -6,7 +6,29 @@ An open source project for the interpretation of blood test results, by receivin
 
 This project is just a small step to do a big thing. This project protects the privacy and vital information of the body [blood test] by receiving the information and storing it once in the database and also by encrypting the data in the database.
 
-Sample output: [result.md](result.md)
+#### setup
+
+
+```bash
+cd app
+pip install -r requirements.txt
+```
+#### Quick start
+
+```bash
+python main.py
+python result.py
+python information.py
+```
+
+- `main.py` core of project and setup input pdf and manage database
+- `result.py` This file acts as a bridge between the data classification process and the final interpretation of the blood tests. 
+It helps to ensure that the results are based on a solid foundation of data analysis and that any anomalies or errors are identified and 
+corrected before the tests are interpreted. By utilizing this file, medical professionals can 
+have greater confidence in the accuracy of their blood test results, which can ultimately lead to better patient outcomes.
+- `information.py` last step for procces data and push to OpenAI & Google Gemini
+
+Sample output: [result/](/results)
 
 ```python
 # Blood factors needed to interpret laboratory data 
