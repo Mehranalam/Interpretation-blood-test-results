@@ -164,17 +164,15 @@ Please write a complete and detailed summary that has full details and
 your answer must be in Markdown format.
 """
 
-<<<<<<< HEAD
 RESULTـOFـWHITEـBLOODـCELLS(
     CONFIG(CONFIG_YML).get("gemini").get("key"),
     prompt
 )
-=======
+
 genai.configure(api_key="?")
 model = genai.GenerativeModel('gemini-1.0-pro-latest')
 response = model.generate_content(prompt)
 english_content = response.text
->>>>>>> a20a8372bb29aa1cc64903271cbef53cf1217a73
 
 APPEND_DATA(
     CONFIG(CONFIG_YML).get("results").get("en"),
