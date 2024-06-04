@@ -1,10 +1,29 @@
 import result
 from openai import OpenAI
+import yaml
 import google.generativeai as genai
 import os
 
+CONFIG_YML = {}
 alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ)( '"
 
+def APPEND_DATA(DATA ,HANDLE):
+    with open(DATA, "a") as myfile:
+        myfile.write(f"{HANDLE}")
+
+def WRITE_DATA(DATA ,HANDLE):
+    f = open(DATA, "w")
+    f.write(f"{HANDLE}")
+    f.close()
+
+def CONFIG(CONFIG_YML):
+    with open("../config.yml") as stream:
+        try:
+            CONFIG_YML = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(f"parse data from config.yml have error {exc}")
+    
+    return CONFIG_YML
 
 ''' Sample-output-data
 Key -   DATA
@@ -106,11 +125,20 @@ I want you to completely interpret my blood test according to the above informat
 
 """
 
-def RESULTـOFـWHITEـBLOODـCELLS():
+def RESULTـOFـWHITEـBLOODـCELLS(KEY, prompt):
     # This function examines the data received from counting the number of white blood cells 
     # and their subsets in order to compare and match with the general and healthy samples and 
     # declares diseases caused by outliers in the WBC count.
-    TODO
+    genai.configure(api_key=f"{KEY}")
+    model = genai.GenerativeModel('gemini-1.0-pro-latest')
+    response = model.generate_content(prompt)
+    english_content = response.text
+
+    WRITE_DATA(
+        CONFIG(CONFIG_YML).get("results").get("en"),
+        english_content
+    )
+    
 
 prompt = f"""I would like you to give me a small interpretation of my blood test according to this information, what will this information say about my physical health and what is the state of my body that I will bring to my doctor later:
 
@@ -132,14 +160,22 @@ prompt = f"""I would like you to give me a small interpretation of my blood test
 Please write a complete and detailed summary that has full details and your answer must be in Markdown format.
 """
 
-genai.configure(api_key="AIzaSyCdW06STYYHCV4OinTCLGs2dpABUnWq0aY")
-model = genai.GenerativeModel('gemini-1.0-pro-latest')
-response = model.generate_content(prompt)
-english_content = response.text
+RESULTـOFـWHITEـBLOODـCELLS(
+    CONFIG(CONFIG_YML).get("gemini").get("key"),
+    prompt
+)
 
-f = open("../results/result.md", "w")
-f.write(f"{english_content}")
-f.close()
+APPEND_DATA(
+    CONFIG(CONFIG_YML).get("results").get("en"),
+    f"""\n\n\n### information:\n\n- Patientــ name : {
+        CONFIG(CONFIG_YML).get("patientــName")
+    }\n- Age : {
+        CONFIG(CONFIG_YML).get("age")
+    }\n- Job : {
+        CONFIG(CONFIG_YML).get("job")
+    }
+    """
+)
 
 '''
 
